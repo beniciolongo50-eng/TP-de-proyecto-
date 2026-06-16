@@ -1,0 +1,297 @@
+
+
+class Program
+{
+    static void Main()
+    {
+        while (true)
+        {
+            Console.Clear();
+
+            Console.WriteLine("===== MENU =====");
+            Console.WriteLine("1 - Longitud de una cadena");
+            Console.WriteLine("2 - Conversión de texto");
+            Console.WriteLine("3 - Contador de vocales");
+            Console.WriteLine("4 - Primera y última letra");
+            Console.WriteLine("5 - División segura");
+            Console.WriteLine("6 - Acceso a posiciones");
+            Console.WriteLine("7 - Búsqueda de palabras");
+            Console.WriteLine("8 - Suma números separados por comas");
+            Console.WriteLine("9 - Invertir texto");
+            Console.WriteLine("10 - Validación contraseña");
+            Console.WriteLine("11 - Validación edad");
+            Console.WriteLine("12 - NullReferenceException");
+            Console.WriteLine("13 - Overflow aritmético");
+            Console.WriteLine("14 - Analizador de texto");
+            Console.WriteLine("0 - Salir");
+
+            Console.Write("\nOpción: ");
+            int opcion = int.Parse(Console.ReadLine());
+
+            switch (opcion)
+            {
+                case 1: Ejercicio1(); break;
+                case 2: Ejercicio2(); break;
+                case 3: Ejercicio3(); break;
+                case 4: Ejercicio4(); break;
+                case 5: Ejercicio5(); break;
+                case 6: Ejercicio6(); break;
+                case 7: Ejercicio7(); break;
+                case 8: Ejercicio8(); break;
+                case 9: Ejercicio9(); break;
+                case 10: Ejercicio10(); break;
+                case 11: Ejercicio11(); break;
+                case 12: Ejercicio12(); break;
+                case 13: Ejercicio13(); break;
+                case 14: Ejercicio14(); break;
+                case 0: return;
+            }
+
+            Console.WriteLine("\nPresione una tecla...");
+            Console.ReadKey();
+        }
+    }
+
+    static void Ejercicio1()
+    {
+        Console.Write("Ingrese una frase: ");
+        string frase = Console.ReadLine();
+        Console.WriteLine($"Cantidad de caracteres: {frase.Length}");
+    }
+
+    static void Ejercicio2()
+    {
+        Console.Write("Ingrese una palabra: ");
+        string palabra = Console.ReadLine();
+
+        Console.WriteLine(palabra.ToUpper());
+        Console.WriteLine(palabra.ToLower());
+        Console.WriteLine($"Caracteres: {palabra.Length}");
+    }
+
+    static void Ejercicio3()
+    {
+        Console.Write("Ingrese una frase: ");
+        string frase = Console.ReadLine().ToLower();
+
+        int vocales = frase.Count(c => "aeiou".Contains(c));
+
+        Console.WriteLine($"Vocales: {vocales}");
+    }
+
+    static void Ejercicio4()
+    {
+        try
+        {
+            Console.Write("Ingrese una palabra: ");
+            string palabra = Console.ReadLine();
+
+            Console.WriteLine($"Primera: {palabra[0]}");
+            Console.WriteLine($"Última: {palabra[palabra.Length - 1]}");
+        }
+        catch
+        {
+            Console.WriteLine("Cadena vacía.");
+        }
+    }
+
+    static void Ejercicio5()
+    {
+        try
+        {
+            Console.Write("Número 1: ");
+            int a = int.Parse(Console.ReadLine());
+
+            Console.Write("Número 2: ");
+            int b = int.Parse(Console.ReadLine());
+
+            Console.WriteLine($"Resultado: {a / b}");
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Debe ingresar números.");
+        }
+        catch (DivideByZeroException)
+        {
+            Console.WriteLine("No se puede dividir por cero.");
+        }
+    }
+
+    static void Ejercicio6()
+    {
+        try
+        {
+            Console.Write("Palabra: ");
+            string palabra = Console.ReadLine();
+
+            Console.Write("Posición: ");
+            int pos = int.Parse(Console.ReadLine());
+
+            Console.WriteLine(palabra[pos]);
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Posición inválida.");
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine("Fuera de rango.");
+        }
+    }
+
+    static void Ejercicio7()
+    {
+        Console.Write("Frase: ");
+        string frase = Console.ReadLine();
+
+        Console.Write("Palabra: ");
+        string palabra = Console.ReadLine();
+
+        Console.WriteLine(frase.Contains(palabra)
+            ? "Se encuentra."
+            : "No se encuentra.");
+    }
+
+    static void Ejercicio8()
+    {
+        try
+        {
+            Console.Write("Números separados por coma: ");
+            string[] numeros = Console.ReadLine().Split(',');
+
+            int suma = 0;
+
+            foreach (string n in numeros)
+                suma += int.Parse(n);
+
+            Console.WriteLine($"Suma: {suma}");
+        }
+        catch
+        {
+            Console.WriteLine("Error de conversión.");
+        }
+    }
+
+    static void Ejercicio9()
+    {
+        Console.Write("Palabra: ");
+        string palabra = Console.ReadLine();
+
+        char[] letras = palabra.ToCharArray();
+        Array.Reverse(letras);
+
+        Console.WriteLine(new string(letras));
+    }
+
+    static void Ejercicio10()
+    {
+        try
+        {
+            Console.Write("Contraseña: ");
+            string pass = Console.ReadLine();
+
+            if (pass.Length < 8 || !pass.Any(char.IsDigit))
+                throw new ArgumentException();
+
+            Console.WriteLine("Contraseña válida.");
+        }
+        catch (ArgumentException)
+        {
+            Console.WriteLine("Debe tener 8 caracteres y un número.");
+        }
+    }
+
+    static void Ejercicio11()
+    {
+        try
+        {
+            Console.Write("Edad: ");
+            int edad = int.Parse(Console.ReadLine());
+
+            if (edad < 1 || edad > 120)
+                throw new ArgumentOutOfRangeException();
+
+            Console.WriteLine("Edad válida.");
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+            Console.WriteLine("Edad fuera de rango.");
+        }
+    }
+
+    static void Ejercicio12()
+    {
+        try
+        {
+            string texto = null;
+            Console.WriteLine(texto.Length);
+        }
+        catch (NullReferenceException)
+        {
+            Console.WriteLine("La variable es null.");
+        }
+    }
+
+    static void Ejercicio13()
+    {
+        try
+        {
+            Console.Write("Número 1: ");
+            int a = int.Parse(Console.ReadLine());
+
+            Console.Write("Número 2: ");
+            int b = int.Parse(Console.ReadLine());
+
+            checked
+            {
+                int suma = a + b;
+                Console.WriteLine($"Suma: {suma}");
+            }
+        }
+        catch (OverflowException)
+        {
+            Console.WriteLine("Overflow detectado.");
+        }
+    }
+
+    static void Ejercicio14()
+    {
+        try
+        {
+            Console.Write("Frase: ");
+            string frase = Console.ReadLine();
+
+            Console.WriteLine($"Caracteres: {frase.Length}");
+            Console.WriteLine($"Palabras: {frase.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length}");
+
+            int vocales = frase.ToLower().Count(c => "aeiou".Contains(c));
+            Console.WriteLine($"Vocales: {vocales}");
+
+            Console.Write("Posición: ");
+            int pos = int.Parse(Console.ReadLine());
+
+            Console.WriteLine($"Carácter: {frase[pos]}");
+
+            Console.Write("Número: ");
+            int num = int.Parse(Console.ReadLine());
+
+            Console.WriteLine($"100 / {num} = {100 / num}");
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Formato incorrecto.");
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine("Posición inválida.");
+        }
+        catch (DivideByZeroException)
+        {
+            Console.WriteLine("No se puede dividir por cero.");
+        }
+        catch (ArgumentException)
+        {
+            Console.WriteLine("Error de argumento.");
+        }
+    }
+}
